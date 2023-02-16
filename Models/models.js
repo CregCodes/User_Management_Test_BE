@@ -1,4 +1,4 @@
-import query from "../Database/index";
+import query from "../Database/index.js";
 
 /**
  * Queries and retrieves all entries from employee database
@@ -6,7 +6,7 @@ import query from "../Database/index";
  */
 
 export async function getAllEmployees() {
-  const result = await query(`SELECT * FROM employee ORDER BY id DESC;`);
+  const result = await query(`SELECT * FROM employee;`);
   const employees = result.rows;
   return employees;
 }

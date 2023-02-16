@@ -11,3 +11,7 @@ if (undefined === databaseUrl) {
 export const pool = new pg.Pool({
   connectionString: databaseUrl,
 });
+
+export default function query(text, params) {
+  return pool.query(text, params);
+}
