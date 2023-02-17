@@ -49,3 +49,14 @@ export async function deleteEmployee(id) {
 }
 
 /** PATCH */
+export async function editEmployee(id, updates) {
+  const updateFields = Object.entries(updates)
+    .map(([key, value]) => `${key} = '${value}'`)
+    .join(", ");
+  const result = await query(
+    `UPDATE employee SET ${updateFields} WHERE id = $1 RETURNING *;`,
+    [id]
+  );
+  const updatedEmployee = result.rows[0];
+  return updatedEmployee;
+}
