@@ -5,7 +5,6 @@ import query from "../Database/index.js";
  * Queries and retrieves all entries from employee database
  * @returns An array of employee objects
  */
-
 export async function getAllEmployees() {
   const result = await query(`SELECT * FROM employee;`);
   const employees = result.rows;
@@ -13,7 +12,8 @@ export async function getAllEmployees() {
 }
 
 /** POST */
-/** Accepts JSON body data and posts new entry into the database (i.e. for user manager to add a new employee to the database)
+/** Accepts JSON body data and posts new entry into the database
+ * (i.e. for user manager to add a new employee to the database)
  *  @returns A new entry into the database (i.e. adding a new employee) */
 export async function createEmployee(newEmployee) {
   const result = await query(
@@ -33,7 +33,6 @@ export async function createEmployee(newEmployee) {
 }
 
 /** TEST POST */
-
 // {
 //     "name": "Adrian Alias",
 //     "employment_status": true,
@@ -41,6 +40,12 @@ export async function createEmployee(newEmployee) {
 //     "reporting_line": "Sarah Smith"
 // }
 
-/** PATCH */
-
 /** DELETE */
+export async function deleteEmployee(id) {
+  const data = await query("DELETE FROM employee WHERE id = $1 RETURNING *;", [
+    id,
+  ]);
+  return data.rows[0];
+}
+
+/** PATCH */

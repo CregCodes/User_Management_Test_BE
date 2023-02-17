@@ -1,5 +1,9 @@
 import express from "express";
-import { getAllEmployees, createEmployee } from "../Models/models.js";
+import {
+  getAllEmployees,
+  createEmployee,
+  deleteEmployee,
+} from "../Models/models.js";
 
 const employeeRouter = express.Router();
 
@@ -14,6 +18,16 @@ employeeRouter.post("/", async function (req, res) {
   const newEmployeeInfo = req.body;
   const newEmployee = createEmployee(newEmployeeInfo);
   res.status(201).json({ success: true, payload: newEmployee });
+});
+
+employeeRouter.delete("/:id", async function (req, res) {
+  console.log("Hello, you have reached the DELETE route");
+  const id = req.params.id;
+  const result = await deleteEmployee(id);
+  res.status(200).json({
+    sucess: true,
+    payload: { message: "Employee deleted!", deletedEmployee: result },
+  });
 });
 
 export default employeeRouter;
